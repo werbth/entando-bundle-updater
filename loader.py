@@ -16,11 +16,11 @@ class Loader:
             descriptor_yaml = yaml.load(descriptor, Loader=yaml.FullLoader)
 
             # load widgets
-            logging.info("Loading widgets")
             widgets = descriptor_yaml['components']['widgets']
             self._load_widgets(bundle_directory, widgets)
 
     def _load_widgets(self, bundle_directory, widgets):
+        logging.info("Loading widgets")
         for w in widgets:
             path = bundle_directory / w
             with path.open('r') as f:
