@@ -1,5 +1,5 @@
 #!/bin/env python3
-
+import logging
 import os
 from pathlib import Path
 
@@ -10,6 +10,7 @@ from loader import Loader
 
 
 def get_configuration():
+    logging.info("Retrieving configuration from environment")
     return {
         'client_id': os.getenv('CLIENT_ID'),
         'client_secret': os.getenv('CLIENT_SECRET'),
@@ -22,6 +23,7 @@ def get_configuration():
 
 
 def get_access_token(env_config):
+    logging.info("Authenticating to Keycloak")
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'  # allow http
     oauth = OAuth2Session(
         client=LegacyApplicationClient(client_id=env_config['client_id']))
@@ -34,6 +36,7 @@ def get_access_token(env_config):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
     config = get_configuration()
     access_token = get_access_token(config)
 

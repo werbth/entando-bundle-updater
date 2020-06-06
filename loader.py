@@ -1,3 +1,5 @@
+import logging
+
 import yaml
 
 from entando_core_client import EntandoClient
@@ -9,10 +11,12 @@ class Loader:
         self._client = EntandoClient(url, access_token)
 
     def load(self, bundle_directory):
+        logging.info("Start processing main descriptor")
         with (bundle_directory / "descriptor.yaml").open('r') as descriptor:
             descriptor_yaml = yaml.load(descriptor, Loader=yaml.FullLoader)
 
             # load widgets
+            logging.info("Loading widgets")
             widgets = descriptor_yaml['components']['widgets']
             self._load_widgets(bundle_directory, widgets)
 
