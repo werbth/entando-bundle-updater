@@ -25,6 +25,10 @@ class Loader:
             widgets = descriptor_yaml['components']['widgets']
             self._load_widgets(bundle_directory, widgets)
 
+            # load fragments
+            fragments = descriptor_yaml['components']['fragments']
+            self._load_fragments(bundle_directory, fragments)
+
     def _upload_resources(self, bundle_directory, descriptor_code):
         logging.info("Uploading resources -------")
         path = bundle_directory / "resources"
@@ -55,3 +59,14 @@ class Loader:
                 widget['customUi'] = (
                         path.parent / widget['customUiPath']).read_text()
                 self._client.update_widget(widget)
+
+    def _load_fragments(self, bundle_directory, fragments):
+        logging.info("Loading fragments -------")
+        for fragment in fragments:
+            path = bundle_directory / fragment
+            with path.open('r') as f:
+               fragment_yaml = yaml.load(f, Loader=yaml.FullLoader)
+               fragment_yaml['guiCode'] = (
+                       path.parent / fragment_yaml['guiCodePath']).read_text()
+               self._client.update_fragment(fragment_yaml)
+

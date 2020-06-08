@@ -1,3 +1,4 @@
 .idea/
 .venv/
 set_env.sh
+__pycache__/

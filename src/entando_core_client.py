@@ -19,6 +19,14 @@ class EntandoClient:
             requests.post(self._url + "/api/widgets", json=widget,
                           headers=self._headers)
 
+    def update_fragment(self, fragment):
+        logging.info("Loading fragment {}".format(fragment["code"]))
+        r = requests.put(self._url + "/api/fragments/" + fragment["code"],
+                         json=fragment, headers=self._headers)
+        if r.status_code == 404:
+            requests.post(self._url + "/api/fragments", json=fragment,
+                          headers=self._headers)
+
     def upload_resource(self, resource):
         logging.info("Uploading resource {}".format(resource["path"]))
         payload = {'protectedFolder': False, 'currentPath': resource['path']}
