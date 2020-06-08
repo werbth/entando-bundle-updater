@@ -1,6 +1,6 @@
 # Entando Bundle Updater
 
-Update/create Entando Bundle components from Entando Core.
+Update/create Entando Bundle components on Entando Core.
 
 Use this command to run the docker image:
 
