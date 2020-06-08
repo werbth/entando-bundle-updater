@@ -11,6 +11,7 @@ docker run -e "CLIENT_ID=${CLIENT_ID}" \
     -e "ENTANDO_PASSWORD=${ENTANDO_PASSWORD}" \
     -e "TOKEN_URL=${TOKEN_URL}" \
     -e "ENTANDO_CORE_URL=${ENTANDO_CORE_URL}" \
-    -v ./bundle_out:/bundle \
+    -v ${local_bundle}:/bundle \
     werbth/entando-bundle-updater:latest
 ```
+
